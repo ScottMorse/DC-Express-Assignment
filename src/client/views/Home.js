@@ -6,22 +6,27 @@ import '../styles/home.css'
 
 export default class Home extends Component {
 
-    state = {uid: null, username: null}
+    state = {uid: null, username: null, email: null}
 
     componentDidMount() {
         fetch('/api/sess')
           .then(res => res.json())
           .then(sess => this.setState({
               uid: sess.uid || null,
-              username: sess.username || null
+              username: sess.username || null,
+              email: sess.email || null
           }))
       }
 
     render() {
-        const { uid } = this.state
+        const { uid,username,email } = this.state
         return (
             <div>
-                {uid ? <HomeDash/> : <LoginPage/> }
+                {uid? 
+                    <HomeDash username={username} uid={uid} email={email}/> 
+                    :
+                    <LoginPage/> 
+                }
             </div>
         )
     }
@@ -64,6 +69,9 @@ class LoginPage extends Component {
                    else if(!result.pswdValid){
                        this.setState({logBlame: "Sorry, incorrect password."})
                    }
+                   else{
+                        window.location.reload()
+                   }
                })
          })
     }
@@ -74,46 +82,45 @@ class LoginPage extends Component {
         this.setState({regBlame: ""})
         if(data.get('email') != data.get('cemail')){
             this.setState({regBlame: "Emails don't match."})
-            return
         }
         else if(data.get('pswd') != data.get('cpswd')){
             this.setState({regBlame: "Passwords don't match."})
-            return
         }
         else if(data.get('pswd').length < 6){
             this.setState({regBlame: "Password is too short."})
-            return
         }
         else if(data.get('username').length < 4){
             this.setState({regBlame: "Username too short."})
-            return
         }
         else if(badUserNames.includes(data.get('username'))){
             this.setState({regBlame: "Username is not available."})
-            return
         }
         else if(!data.get('email').match(emailRegex)){
             this.setState({regBlame: "Invalid email address."})
-            return
         }
-        fetch('/api/register', {
-            method: 'POST',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: utils.fdToJson(data)
-        })
-          .then(response =>
-            response.json())
-            .then(result => {
-                if(!result.userValid){
-                  this.setState({regBlame: "Username not available."})
-                }
-                else if(!result.emailValid){
-                  this.setState({regBlame: "Email address already in use."})
-                }
+        else{
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: utils.fdToJson(data)
             })
+              .then(response =>
+                response.json())
+                .then(result => {
+                    if(!result.userValid){
+                      this.setState({regBlame: "Username not available."})
+                    }
+                    else if(!result.emailValid){
+                      this.setState({regBlame: "Email address already in use."})
+                    }
+                    else{
+                        window.location.reload()
+                    }
+                })
+        }
     }
 
     render(){
@@ -145,9 +152,42 @@ class LoginPage extends Component {
 }
 
 class HomeDash extends Component {
+
+    state = {}
+
+    constructor(){
+        super()
+        this.handleLogout = this.handleLogout.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
+    }
+
+    handleSearch(e){
+        e.preventDefault()
+        const data = new FormData(e.target)
+        console.log(data.get('query'))
+    }
+
+    handleLogout(){
+        fetch('/api/logout',{method:'POST'})
+          .then(response => {
+              window.location.reload()
+          })
+    }
+
     render(){
         return (
-            <h1>What hath God wrought?</h1>
+            <div id="page-wrap">
+                <h1>Welcome, {this.props.username}!</h1>
+                <form onSubmit={this.handleLogout}>
+                    <input type="submit" value="Logout"/>
+                </form>
+                <div>
+                <form onSubmit={this.handleSearch}>
+                    <input type="search" placeholder="Search our products" name="query"/>
+                    <input type="submit" value="Search"/>
+                </form>
+                </div>
+            </div>
         )
     }
 }

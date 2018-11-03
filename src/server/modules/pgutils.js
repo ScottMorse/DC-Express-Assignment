@@ -45,6 +45,16 @@ function checkDefaultTables(){
             'city VARCHAR(50)',
             'zip INT',
         ]).then(console.log('> PostgreSQL address table created.')).catch(err => console.log(err)))
+        db.oneOrNone('SELECT * FROM usercarts LIMIT 1;')
+                .then(after => {
+                    console.log('> PostgreSQL usercarts table okay.')
+                })
+                .catch(err =>
+                    createTable('usercarts', [
+                        'id SERIAL PRIMARY KEY',
+                        'uid INTEGER REFERENCES users(id) NOT NULL',
+                        'productids INTEGER[] DEFAULT \'{}\'',
+                    ]).then(console.log('> PostgreSQL orders table created.')).catch(err => console.log(err)))
         db.oneOrNone('SELECT * FROM orders LIMIT 1;')
             .then(after => {
                 console.log('> PostgreSQL orders table okay.')
@@ -63,7 +73,9 @@ function checkDefaultTables(){
                 createTable('products', [
                     'id SERIAL PRIMARY KEY',
                     'name VARCHAR(50) NOT NULL',
+                    'category varchar(50) NOT NULL',
                     'price INTEGER NOT NULL',
+                    'imgurl TEXT',
                     'details TEXT',
                 ]).then(after => {
                     console.log('> PostgreSQL products table created.')

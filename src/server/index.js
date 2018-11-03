@@ -23,7 +23,6 @@ app.use(session({
   }))
 
 app.get('/api/sess', (req, res) => {
-    // console.log(req.session.uid)
     res.send(req.session)
 })
 
