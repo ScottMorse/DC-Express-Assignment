@@ -17,9 +17,9 @@ app.use(bodyParser.json());
 
 app.use(session({
     store: new (require('connect-pg-simple')(session))({
-      conString: process.env.DB_CONN
+      conString: "postgres://rhoshiwuxnsqgh:7f23b644efa4df7786bc8d61adbf38c3b7c1db73b8ecb7ad96055e8753c4eaa2@ec2-184-73-169-151.compute-1.amazonaws.com:5432/dbu28qtrb6553b"
     }),
-    secret: process.env.SECRET_KEY,
+    secret: "Zgs4JS3e3n",
     resave: false,
     saveUninitialized: false
 }))
