@@ -182,7 +182,6 @@ class HomeDash extends Component {
                     <input type="search" placeholder="Search our products" name="query"/>
                     <input type="submit" value="Search"/>
                 </form>
-                <a href="/#/add">ADD</a>
                 <div id="hint">(Try searching: Apple, iphone, Samsung, TV, phone, laptop)</div>
                 </div>
             </div>
