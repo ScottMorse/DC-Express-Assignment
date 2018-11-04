@@ -4,6 +4,7 @@ const db = require('./modules/pgutils')
 const dotEnv = require('dotenv').config()
 const session = require('express-session')
 const bodyParser = require('body-parser')
+const path = require('path')
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.use(session({
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false
-  }))
+}))
 
 app.get('/api/sess', (req, res) => {
     res.send(req.session)

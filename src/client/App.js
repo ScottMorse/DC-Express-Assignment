@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import './styles/app.css';
 import ReactImage from './imgs/react.png';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
 
 import Home from './views/Home'
+import Search from './views/Search'
 
 export default class App extends Component {
 
   render() {
     return (
-        <BrowserRouter>
+        <HashRouter basename="/">
           <Switch>
-            <Route path='/' component={Home}/>
+            <Route path='/' exact component={Home}/>
+            <Route path='/search' component={Search}/>
           </Switch>
-        </BrowserRouter>
+        </HashRouter>
     )
 
     // const { username } = this.state;

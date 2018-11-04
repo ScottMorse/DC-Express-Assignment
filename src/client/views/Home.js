@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 const utils = require('../utils/utils')
 
+import { withRouter } from 'react-router-dom'
+
 import '../styles/home.css'
 
 export default class Home extends Component {
@@ -161,17 +163,17 @@ class HomeDash extends Component {
         this.handleSearch = this.handleSearch.bind(this)
     }
 
-    handleSearch(e){
-        e.preventDefault()
-        const data = new FormData(e.target)
-        console.log(data.get('query'))
-    }
-
     handleLogout(){
         fetch('/api/logout',{method:'POST'})
           .then(response => {
               window.location.reload()
           })
+    }
+
+    handleSearch(e){
+        e.preventDefault()
+        const data = new FormData(e.target)
+        window.location.href = '#/search?q=' + data.get('query')
     }
 
     render(){
