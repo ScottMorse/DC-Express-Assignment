@@ -29,6 +29,7 @@ export default class Add extends Component {
                 <input type="text" placeholder="cat" name="category"/>
                 <input type="text" placeholder="url" name="imageurl"/>
                 <input type="text"  placeholder="price" name="price"/>
+                <input type="submit" value="Submit"/>
             </form>
         )
     }
