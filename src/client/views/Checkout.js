@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 const utils = require('../utils/utils')
 
-import '../styles/cart.css'
+import '../styles/checkout.css'
 
 import Header from './Header'
 
@@ -11,7 +11,6 @@ export default class Checkout extends Component {
         return (
             <div id="page-wrap">
                 <Header/>
-                <div>Hello</div>
                 <Summary/>
             </div>
         )
@@ -132,7 +131,7 @@ class Summary extends Component {
                             (total,prod) => {
                                 return total + prod.price
                         },0)}</div>
-                        <button onClick={this.placeOrder}>Place Order</button>
+                        <button id="place-order" onClick={this.placeOrder}>Place Order</button>
                     </div>
                     <div id="shipping">
                       <h2 id="ship-title">Shipping To:</h2>

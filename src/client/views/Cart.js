@@ -13,7 +13,7 @@ export default class Cart extends Component {
             <div id="page-wrap">
                <Header/>
                 <h2>My Cart:</h2>
-                <a href="/#/checkout">Checkout</a>
+                <a id="checkout" href="/#/checkout">Checkout</a>
                 <Products/>
             </div>
         )

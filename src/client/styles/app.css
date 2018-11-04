@@ -1,8 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text|Roboto:400,700|Teko');
+
+html{
+  line-height: 1;
+  font-family: 'Roboto'
+}
+
 h1 {
-  color: green;
+  font-family: 'Libre Barcode 128 Text';
+  font-size: 60px;
+}
+
+h2, h3, [type=submit], button{
+  font-family: 'Teko';
+  letter-spacing: 0.5px;
+}
+
+.blame {
+  color: red;
 }
 
 body {
   text-align: center;
   margin: auto;
+}
+
+[type=search]{
+  font-size: 18px;
+  margin: 10px;
+  padding: 4px;
+  border: 1px solid grey;
+}
+
+[value=Search]{
+  font-size: 18px;
+  background-color: whitesmoke;
+  border: none;
 }

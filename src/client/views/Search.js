@@ -9,28 +9,12 @@ import Header from './Header'
 import queryString from 'query-string'
 
 export default class Search extends Component {
-    state = {uid: null, username: null, email: null, query: queryString.parse(this.props.location.search)}
+    state = {query: queryString.parse(this.props.location.search)}
 
     constructor(props){
         super(props)
         this.handleSearch = this.handleSearch.bind(this)
     }
-
-    componentDidMount() {
-        fetch('/api/sess')
-          .then(res => res.json())
-          .then(sess => {
-              this.setState({
-              uid: sess.uid || null,
-              username: sess.username || null,
-              email: sess.email || null,
-          })
-          if(!sess.uid){
-              window.location.href = '/#/'
-              return
-          }
-        })
-      }
 
     handleSearch(e){
         e.preventDefault()
@@ -48,7 +32,7 @@ export default class Search extends Component {
                     <input type="search" placeholder="Search our products" name="query"/>
                     <input type="submit" value="Search"/>
                 </form>
-                <Products uid={this.state.uid} query={this.state.query}/>
+                <Products query={this.state.query}/>
             </div>
         )
     }
@@ -56,7 +40,7 @@ export default class Search extends Component {
 
 class Products extends Component {
 
-    state = {results: [], itemsAdded: [], loading: 'Loading...'}
+    state = {uid: '',username: '', email: '',results: [], itemsAdded: [], loading: 'Loading...'}
 
     constructor(props){
         super(props)
@@ -64,6 +48,19 @@ class Products extends Component {
     }
 
     componentDidMount() {
+        fetch('/api/sess')
+          .then(res => res.json())
+          .then(sess => {
+              this.setState({
+              uid: sess.uid || null,
+              username: sess.username || null,
+              email: sess.email || null,
+          })
+          if(!sess.uid){
+              window.location.href = '/#/'
+              return
+          }
+        })
         fetch('/api/search',{
             method:"post",
             headers: {
@@ -85,7 +82,7 @@ class Products extends Component {
 
     addToCart(e){
         e.persist()
-        const prodId = e.target.parentElement.dataset.key
+        const prodId = e.target.parentElement.parentElement.dataset.key
         let itemsAdded = this.state.itemsAdded.slice()
         if(!itemsAdded.includes(prodId)){
             fetch('/api/cart/addToCart',{
@@ -93,7 +90,7 @@ class Products extends Component {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({uid: this.props.uid, prodId: prodId}) 
+                body: JSON.stringify({uid: this.state.uid, prodId: prodId}) 
             })
               .then(res => {
                 e.target.innerHTML = 'Added to Cart!'
@@ -113,9 +110,11 @@ class Products extends Component {
                     return (
                     <div className="product" key={product.id} data-key={product.id}>
                       <div className="prod-img" style={{backgroundImage:'url(' + product.imgurl + ')'}}></div>
-                      <h3 className="prod-title">{product.name}</h3>
-                      <div className="prod-price">${product.price}</div>
-                      <button className="add-cart" onClick={this.addToCart}>Add to Cart</button>
+                      <div className="details-wrap">
+                        <h3 className="prod-title">{product.name}</h3>
+                        <div className="prod-price">${product.price}</div>
+                        <button className="add-cart" onClick={this.addToCart}>Add to Cart</button>
+                      </div>
                     </div>
                     )
                 })

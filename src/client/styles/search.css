@@ -1,7 +1,35 @@
+#products {
+    width: 90vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .prod-img {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.product{
+    width: 150px;
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid rgb(167, 167, 167);
+    border-radius: 20% / 10%;
+}
+
+h3 {
+    margin: 0;
+}
+
+.add-cart {
+    font-size:  18px;
+    border: none;
+}
+
+.details-wrap > * {
+    margin: 5px;
 }

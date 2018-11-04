@@ -1,0 +1,17 @@
+#orders-wrap{
+    display: flex;
+    flex-direction: column;
+}
+
+.order {
+    display: flex;
+    margin: 5px;
+    border: 2px solid black;
+    padding: 5px;
+    width: 320px;
+}
+
+.order-price {
+    margin-left: 20px;
+    font-weight: 700;
+}

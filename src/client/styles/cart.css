@@ -1,0 +1,12 @@
+h2 {
+    font-size: 40px;
+}
+
+#checkout {
+    background: whitesmoke;
+    border: 1px solid rgb(182, 182, 182);
+    text-decoration: none;
+    padding: 10px;
+    color: black;
+    border-radius: 15% / 10%;
+}

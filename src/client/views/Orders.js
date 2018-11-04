@@ -52,7 +52,7 @@ export default class Orders extends Component {
         return (
             <div id="page-wrap">
                <Header/>
-                <h1>My Orders</h1>
+                <h2>My Orders</h2>
                 <OrderSummary orders={this.state.orders} loading={this.state.loading}/>
             </div>
         )

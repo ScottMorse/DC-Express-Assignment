@@ -131,17 +131,17 @@ class LoginPage extends Component {
         const { logBlame, regBlame, loading } = this.state
         return (
             <div id='page-wrap'>
-              <h1>Login Page</h1>
+              <h1 id="log-title">Express Electronics</h1>
               <div>{loading}</div>
+              <h2 className="form-title">Login</h2>
               <form method="post" onSubmit={this.handleLogin} className="auth-form">
-                <h2 className="form-title">Login</h2>
                 <div id="log-blame" className="blame">{logBlame}</div>
                 <input type="text" placeholder="Your username" name="username" required/>
                 <input type="password" placeholder="******" name="pswd" required/>
                 <input type="submit" value="Login"/>
               </form>
+              <h2 className="form-title">Register</h2>
               <form method="post" onSubmit={this.handleRegister} className="auth-form">
-                <h2 className="form-title">Register</h2>
                 <div id="reg-blame" className="blame">{regBlame}</div>
                 <input type="text" placeholder="New username" name="username" required/>
                 <input type="text" placeholder="your@email.com" name="email" required/>
@@ -178,12 +178,13 @@ class HomeDash extends Component {
         return (
             <div id="page-wrap">
               <Header/>
-                <h1>Welcome, {this.props.username}!</h1>
+                <h2>Welcome, {this.props.username}!</h2>
                 <div>
                 <form onSubmit={this.handleSearch}>
                     <input type="search" placeholder="Search our products" name="query"/>
                     <input type="submit" value="Search"/>
                 </form>
+                <div id="hint">(Try searching: Apple, iphone, Samsung, TV, phone, laptop)</div>
                 </div>
             </div>
         )
