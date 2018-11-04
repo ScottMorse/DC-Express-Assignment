@@ -105,14 +105,4 @@ router.post('/address', (req,res) => {
      })
 })
 
-router.post('/add', (req,res)=> {
-  db.insertNewData('products',['name','category','price','imageurl'],[
-    db.wrap(req.body.name),
-    db.wrap(req.body.category),
-    req.body.price,
-    db.wrap(req.body.imageurl)
-  ])
-  res.end()
-})
-
 module.exports = router

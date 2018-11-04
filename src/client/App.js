@@ -8,7 +8,6 @@ import Search from './views/Search'
 import Cart from './views/Cart'
 import Checkout from './views/Checkout'
 import Orders from './views/Orders'
-import Add from './views/Add'
 
 export default class App extends Component {
 
@@ -21,7 +20,7 @@ export default class App extends Component {
             <Route path='/cart' component={Cart}/>
             <Route path='/checkout' component={Checkout}/>
             <Route path='/orders' component={Orders}/>
-            <Route path="/add" component={Add}/>
+
           </Switch>
         </HashRouter>
     )
