@@ -112,6 +112,7 @@ router.post('/add', (req,res)=> {
     req.body.price,
     db.wrap(req.body.imageurl)
   ])
+  res.end()
 })
 
 module.exports = router
