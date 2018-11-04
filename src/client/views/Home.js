@@ -4,6 +4,8 @@ const utils = require('../utils/utils')
 
 import { withRouter } from 'react-router-dom'
 
+import Header from './Header'
+
 import '../styles/home.css'
 
 export default class Home extends Component {
@@ -131,6 +133,13 @@ class LoginPage extends Component {
             <div id='page-wrap'>
               <h1>Login Page</h1>
               <div>{loading}</div>
+              <form method="post" onSubmit={this.handleLogin} className="auth-form">
+                <h2 className="form-title">Login</h2>
+                <div id="log-blame" className="blame">{logBlame}</div>
+                <input type="text" placeholder="Your username" name="username" required/>
+                <input type="password" placeholder="******" name="pswd" required/>
+                <input type="submit" value="Login"/>
+              </form>
               <form method="post" onSubmit={this.handleRegister} className="auth-form">
                 <h2 className="form-title">Register</h2>
                 <div id="reg-blame" className="blame">{regBlame}</div>
@@ -139,14 +148,11 @@ class LoginPage extends Component {
                 <input type="text" placeholder="your@email.com (Confirm)" name="cemail" required/>
                 <input type="password" placeholder="******" name="pswd" required/>
                 <input type="password" placeholder="****** (Confirm)" name="cpswd" required/>
+                <input type='text' placeholder="Address name" name="addname" required/>
+                <input type='text' placeholder="Street" name="addstreet" required/>
+                <input type='text' placeholder="City, State" name="addcity" required/>
+                <input type='text' placeholder="Zip" name="addzip" required/>
                 <input type="submit" value="Register"/>
-              </form>
-              <form method="post" onSubmit={this.handleLogin} className="auth-form">
-                <h2 className="form-title">Login</h2>
-                <div id="log-blame" className="blame">{logBlame}</div>
-                <input type="text" placeholder="Your username" name="username" required/>
-                <input type="password" placeholder="******" name="pswd" required/>
-                <input type="submit" value="Login"/>
               </form>
             </div>
         )
@@ -159,15 +165,7 @@ class HomeDash extends Component {
 
     constructor(){
         super()
-        this.handleLogout = this.handleLogout.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
-    }
-
-    handleLogout(){
-        fetch('/api/logout',{method:'POST'})
-          .then(response => {
-              window.location.reload()
-          })
     }
 
     handleSearch(e){
@@ -179,10 +177,8 @@ class HomeDash extends Component {
     render(){
         return (
             <div id="page-wrap">
+              <Header/>
                 <h1>Welcome, {this.props.username}!</h1>
-                <form onSubmit={this.handleLogout}>
-                    <input type="submit" value="Logout"/>
-                </form>
                 <div>
                 <form onSubmit={this.handleSearch}>
                     <input type="search" placeholder="Search our products" name="query"/>

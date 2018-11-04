@@ -9,6 +9,7 @@ const path = require('path')
 const app = express();
 
 const homeRouter = require('./routes/home')
+const cartRouter = require('./routes/cart')
 
 app.use(express.static('dist'));
 
@@ -28,6 +29,7 @@ app.get('/api/sess', (req, res) => {
 })
 
 app.use('/api',homeRouter)
+app.use('/api/cart',cartRouter)
 
 app.listen(8080, () => console.log('Listening on port 8080!'))
 

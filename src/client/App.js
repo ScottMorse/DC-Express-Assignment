@@ -5,15 +5,21 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 
 import Home from './views/Home'
 import Search from './views/Search'
+import Cart from './views/Cart'
+import Checkout from './views/Checkout'
+import Orders from './views/Orders'
 
 export default class App extends Component {
 
   render() {
-    return (
+    return (    
         <HashRouter basename="/">
           <Switch>
             <Route path='/' exact component={Home}/>
             <Route path='/search' component={Search}/>
+            <Route path='/cart' component={Cart}/>
+            <Route path='/checkout' component={Checkout}/>
+            <Route path='/orders' component={Orders}/>
           </Switch>
         </HashRouter>
     )

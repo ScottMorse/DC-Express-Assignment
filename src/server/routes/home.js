@@ -51,6 +51,13 @@ router.post('/register', (req,res) => {
                           req.session.email = user.email
                           req.session.username = user.username
                           db.insertNewData('usercarts',['uid'],[req.session.uid])
+                          db.insertNewData('addresses',['uid','name','street','city','zip'],[
+                              user.id,
+                              db.wrap(req.body.addname),
+                              db.wrap(req.body.addstreet),
+                              db.wrap(req.body.addcity),
+                              req.body.addzip,
+                          ])
                           res.send(JSON.stringify(response))
                         })
                     })
@@ -68,8 +75,34 @@ router.post('/register', (req,res) => {
 })
 
 router.post('/logout',(req,res) => {
-    req.session.destroy()
-    res.end()
+  req.session.destroy()
+  res.end()
+})
+
+router.post('/search',(req,res) => {
+  const queryArr = req.body.query.q.split()
+  let results = {results: []}
+  db.selectTableAll('products')
+    .then(rows => {
+      rows.forEach(product => {
+        queryArr.forEach(word => {
+          if(product.name.toLowerCase().includes(word.toLowerCase())){
+            results.results.push(product)
+          }
+          else if(product.category.toLowerCase().includes(word.toLowerCase())){
+            results.results.push(product)
+          }
+        })
+      })
+      res.send(JSON.stringify(results))
+    })
+})
+
+router.post('/address', (req,res) => {
+   db.filterData('addresses',['*'],['uid'],[req.body.uid])
+     .then(rows => {
+       res.send(JSON.stringify(rows[0]))
+     })
 })
 
 module.exports = router

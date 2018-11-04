@@ -64,6 +64,8 @@ function checkDefaultTables(){
                     'id SERIAL PRIMARY KEY',
                     'uid INTEGER REFERENCES users(id) NOT NULL',
                     'productids INTEGER[] DEFAULT \'{}\'',
+                    'date DATE',
+                    'price INT',
                 ]).then(console.log('> PostgreSQL orders table created.')).catch(err => console.log(err)))
         db.oneOrNone('SELECT * FROM products LIMIT 1;')
             .then(after => {
